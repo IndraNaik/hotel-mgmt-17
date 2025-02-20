@@ -27,6 +27,6 @@ public class BookingTable extends Auditable {
 
     @OneToOne
     @JoinColumn(name="table_id",referencedColumnName = "id")
-    private Tables table_id;
+    private Tables table;
 
 }
