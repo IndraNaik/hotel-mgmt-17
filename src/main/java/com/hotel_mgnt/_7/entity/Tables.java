@@ -35,4 +35,52 @@ public class Tables extends Auditable {
     @OneToOne(mappedBy = "table", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private BookingTable bookingTable;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public User getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(User admin) {
+        this.admin = admin;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
+
+    public boolean isBookingStatus() {
+        return bookingStatus;
+    }
+
+    public void setBookingStatus(boolean bookingStatus) {
+        this.bookingStatus = bookingStatus;
+    }
+
+    public BookingTable getBookingTable() {
+        return bookingTable;
+    }
+
+    public void setBookingTable(BookingTable bookingTable) {
+        this.bookingTable = bookingTable;
+    }
 }
