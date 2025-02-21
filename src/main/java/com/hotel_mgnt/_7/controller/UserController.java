@@ -4,6 +4,7 @@ import com.hotel_mgnt._7.dto.UserDto;
 import com.hotel_mgnt._7.exceptions.BadRequestAlertException;
 import com.hotel_mgnt._7.exceptions.Response;
 import com.hotel_mgnt._7.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/user/add")
 public class UserController {
 
+    @Autowired
     private UserService userService;
 
     @PostMapping("/Customer")
