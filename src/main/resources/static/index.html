@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Management System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<h1>Hotel Management System</h1>
+
+<!-- Admin Panel -->
+<section id="admin">
+    <h2>Admin Panel</h2>
+
+    <h3>Add Admin</h3>
+    <input type="text" id="adminName" placeholder="Admin Name">
+    <input type="text" id="adminPhone" placeholder="Phone Number">
+    <button onclick="addAdmin()">Add Admin</button>
+
+    <h3>Add Table</h3>
+    <input type="number" id="adminIdForTable" placeholder="Admin ID">
+    <input type="number" id="tablePrice" placeholder="Table Price">
+    <button onclick="addTable()">Add Table</button>
+
+    <h3>Assign Waiter</h3>
+    <input type="number" id="bookingId" placeholder="Booking ID">
+    <input type="number" id="waiterId" placeholder="Waiter ID">
+    <button onclick="assignWaiter()">Assign Waiter</button>
+</section>
+
+<!-- Customer Panel -->
+<section id="customer">
+    <h2>Customer Panel</h2>
+    <input type="text" id="customerName" placeholder="Customer Name">
+    <input type="text" id="customerPhone" placeholder="Phone Number">
+    <button onclick="addCustomer()">Add Customer</button>
+
+    <h3>Book Table</h3>
+    <input type="number" id="customerIdForBooking" placeholder="Customer ID">
+    <input type="number" id="tableIdForBooking" placeholder="Table ID">
+    <button onclick="bookTable()">Book Table</button>
+</section>
+
+<!-- Waiter Panel -->
+<section id="waiter">
+    <h2>Waiter Panel</h2>
+    <input type="text" id="waiterName" placeholder="Waiter Name">
+    <input type="text" id="waiterPhone" placeholder="Phone Number">
+    <input type="number" id="adminIdForWaiter" placeholder="Admin ID">
+    <button onclick="addWaiter()">Add Waiter</button>
+</section>
+
+<script src="fetch.js"></script>
+</body>
+</html>
