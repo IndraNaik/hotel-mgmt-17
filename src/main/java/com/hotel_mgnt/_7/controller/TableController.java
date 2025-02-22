@@ -10,9 +10,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/tables")
-public class TableRepository {
+public class TableController {
 
     @Autowired
     private TablesService tablesService;
