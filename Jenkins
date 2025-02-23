@@ -11,7 +11,7 @@ pipeline{
         stage("Build"){
             steps{
                 echo "This is building the code"
-                sh "sudo docker build -t hotel-mgmt-17:latest ."
+                sh "docker build -t hotel-mgmt-17:latest ."
             }
         }
         stage("Push to DockerHub"){
