@@ -9,6 +9,9 @@ import com.hotel_mgnt._7.repository.UserRepository;
 import com.hotel_mgnt._7.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -88,6 +91,56 @@ public class UserServiceImpl implements UserService {
         return response;
     }
 
+    @Override
+    public Page<UserDto> allUsers(Pageable pageable) {
+        return userRepository.findAll(pageable).map(this::entityToDto);
+    }
+
+    @Override
+    public Response<Page<UserDto>> getAllAdmins(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<User> adminsPage = userRepository.findByRole(Role.ADMIN, pageable);
+        Page<UserDto> dtoPage = adminsPage.map(this::entityToDto);
+        return new Response<>(dtoPage, "Admins fetched successfully", HttpStatus.OK);
+    }
+
+    @Override
+    public Response<Page<UserDto>> getAllCustomers(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<User> adminsPage = userRepository.findByRole(Role.CUSTOMER, pageable);
+        Page<UserDto> dtoPage = adminsPage.map(this::entityToDto);
+        return new Response<>(dtoPage, "Customers fetched successfully", HttpStatus.OK);
+    }
+
+    @Override
+    public Response<Page<UserDto>> getAllWaiters(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<User> adminsPage = userRepository.findByRoleAndStatusTrue(Role.WAITER, pageable);
+        Page<UserDto> dtoPage = adminsPage.map(this::entityToDto);
+        return new Response<>(dtoPage, "Waiters fetched successfully", HttpStatus.OK);
+    }
+
+    @Override
+    public Response<UserDto> softDeleteWaiter(long waiterId, long adminId) {
+        User admin = userRepository.findById(adminId)
+                .orElseThrow(() -> new ResourceNotFoundException("Admin not found with ID: " + adminId));
+
+        if (admin.getRole() != Role.ADMIN) {
+            return new Response<UserDto>(null, "Only Admins can deactivate waiters", HttpStatus.FORBIDDEN);
+        }
+
+        User waiter = userRepository.findById(waiterId)
+                .orElseThrow(() -> new ResourceNotFoundException("Waiter not found with ID: " + waiterId));
+
+        if (waiter.getRole() != Role.WAITER) {
+            return new Response<UserDto>(null, "The provided user is not a Waiter", HttpStatus.BAD_REQUEST);
+        }
+
+        waiter.setStatus(false);
+        userRepository.save(waiter);
+
+        return new Response<UserDto>(null, "Waiter deactivated successfully", HttpStatus.OK);
+    }
 
     // Entity to Dto
     private UserDto entityToDto(User user) {
