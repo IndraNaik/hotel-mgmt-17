@@ -30,7 +30,8 @@ pipeline{
         stage("Deploy"){
             steps{
                 echo "This is deploying the code"
-                 sh "docker run -d -p 7071:7071 hotel-mgmt-17:latest"
+                 // sh "docker run -d -p 7071:7071 hotel-mgmt-17:latest"
+                 sh "docker compose down && docker compose up -d"
             }
         }
     }

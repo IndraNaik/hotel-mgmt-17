@@ -1,0 +1,33 @@
+version: '3.8'
+services:
+  mysql:
+    image: mysql:8
+    container_name: mysql_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: pass123
+      MYSQL_DATABASE: hotel_management_sys_17
+      MYSQL_USER: root
+      MYSQL_PASSWORD: pass123
+    ports:
+      - "3306:3306"
+    networks:
+      - app_network
+
+  app:
+    build: .
+    container_name: hotel_management_app
+    restart: always
+    depends_on:
+      - mysql
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/hotel_management_sys_17
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: pass123
+    ports:
+      - "7071:7071"
+    networks:
+      - app_network
+
+networks:
+  app_network:
