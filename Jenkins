@@ -1,7 +1,5 @@
 pipeline{
-
     agent any
-
     stages{
         stage("code"){
             steps{
@@ -13,7 +11,6 @@ pipeline{
         stage("Build"){
             steps{
                 echo "This is building the code"
-                sh "whoami"
                 sh "sudo docker build -t hotel-mgmt-17:latest ."
             }
         }
@@ -34,9 +31,7 @@ pipeline{
             steps{
                 echo "This is deploying the code"
                  sh "docker run -d -p 7071:7071 hotel-mgmt-17:latest"
-                // sh "sudo docker compose up -d"
             }
         }
-
     }
 }
