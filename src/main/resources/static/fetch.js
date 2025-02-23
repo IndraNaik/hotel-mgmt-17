@@ -1,4 +1,5 @@
-const BASE_URL = "http://localhost:7071"; // Change if needed
+// const BASE_URL = "http://localhost:7071"; // Change if needed
+const BASE_URL = "http://172.20.0.3:7071"; // Change if needed
 
 // Function to Add Admin
 function addAdmin() {
