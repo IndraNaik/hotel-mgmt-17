@@ -1,0 +1,42 @@
+pipeline{
+
+    agent any
+
+    stages{
+        stage("code"){
+            steps{
+                echo "This is cloning the code"
+                git url: "https://github.com/IndraNaik/hotel-mgmt-17.git", branch:"main"
+                echo "Code cloned successfully"
+            }
+        }
+        stage("Build"){
+            steps{
+                echo "This is building the code"
+                sh "whoami"
+                sh "sudo docker build -t hotel-mgmt-17:latest ."
+            }
+        }
+        stage("Push to DockerHub"){
+            steps{
+                echo "This is pushing the image to dockerhub"
+                    withCredentials([usernamePassword(
+                    credentialsId: "dockerHubCred",
+                    passwordVariable: "dockerHubPass",
+                    usernameVariable: "dockerHubUser")]){
+                sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPass}"
+                sh "docker image tag hotel-mgmt-17:latest ${env.dockerHubUser}/hotel-mgmt-17:latest"
+                sh "docker push ${env.dockerHubUser}/hotel-mgmt-17:latest"
+                }
+            }
+        }
+        stage("Deploy"){
+            steps{
+                echo "This is deploying the code"
+                 sh "docker run -d -p 7071:7071 hotel-mgmt-17:latest"
+                // sh "sudo docker compose up -d"
+            }
+        }
+
+    }
+}
