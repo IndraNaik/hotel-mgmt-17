@@ -7,8 +7,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: pass123
       MYSQL_DATABASE: hotel_management_sys_17
-      MYSQL_USER: root
-      MYSQL_PASSWORD: pass123
+      MYSQL_USER: app_user
+      MYSQL_PASSWORD: hotel_user
     ports:
       - "3306:3306"
     networks:
@@ -22,8 +22,8 @@ services:
       - mysql
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/hotel_management_sys_17
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: pass123
+      SPRING_DATASOURCE_USERNAME: app_user
+      SPRING_DATASOURCE_PASSWORD: hotel_user
     ports:
       - "7071:7071"
     networks:
